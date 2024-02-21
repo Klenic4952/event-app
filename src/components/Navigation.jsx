@@ -1,17 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Box, Flex } from "@chakra-ui/react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Events</Link>
-        </li>
-        <li>
-          <Link to="/event/1">Event</Link>
-        </li>
-      </ul>
-    </nav>
+    <Flex as="nav" gap="10px" justifyContent={"flex-end"}>
+      <Box>
+        <Link to="/">Events</Link>
+      </Box>
+      <Box>
+        <Link to="/event/1">Event</Link>
+      </Box>
+    </Flex>
   );
 };
