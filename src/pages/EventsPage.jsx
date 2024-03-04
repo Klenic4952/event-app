@@ -29,8 +29,8 @@ export const EventsPage = () => {
 
   return (
     <Container maxW={{ base: "100%", lg: "85%" }}>
-      <Heading align="center" margin="50" color="white">
-        List of events
+      <Heading align="center" mt="20px" mb="60px" fontSize="5xl" color="white">
+        All events
       </Heading>
       <SimpleGrid spacing={10} minChildWidth={"250px"}>
         {events &&
@@ -45,7 +45,7 @@ export const EventsPage = () => {
                     borderTopRadius="xl"
                     src={event.image}
                   />
-                  <Heading fontSize="28px" mt="10px" color="orange.500">
+                  <Heading fontSize="28px" mt="10px" color="#803419">
                     {event.title}
                   </Heading>
                   <Text
@@ -78,7 +78,7 @@ export const EventsPage = () => {
                           margin="1.5"
                           mb="5"
                           mt="5"
-                          backgroundColor="blue.300"
+                          backgroundColor="#A5A726"
                           size="md"
                           variant="solid"
                           textTransform="uppercase"
