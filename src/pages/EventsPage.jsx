@@ -1,10 +1,15 @@
 import React from "react";
 import {
+  Box,
   Card,
   CardBody,
-  CardHeader,
+  Container,
+  Flex,
   Heading,
+  Image,
   SimpleGrid,
+  Tag,
+  Text,
 } from "@chakra-ui/react";
 import { Link, useLoaderData } from "react-router-dom";
 
@@ -23,32 +28,73 @@ export const EventsPage = () => {
   const { events, categories } = useLoaderData();
 
   return (
-    <>
-      <Heading>List of events</Heading>
-      <SimpleGrid spacing={10} minChildWidth={"300px"}>
+    <Container maxW={{ base: "100%", lg: "85%" }}>
+      <Heading align="center" margin="50" color="white">
+        List of events
+      </Heading>
+      <SimpleGrid spacing={10} minChildWidth={"250px"}>
         {events &&
           events.map((event) => (
-            <Card key={event.id}>
+            <Card key={event.id} maxW="sm" borderRadius="xl" cursor="pointer">
               <Link to={`event/${event.id}`}>
-                <CardHeader>{event.title}</CardHeader>
+                <CardBody padding="0" align="center">
+                  <Image
+                    h="225px"
+                    w="full"
+                    objectFit="cover"
+                    borderTopRadius="xl"
+                    src={event.image}
+                  />
+                  <Heading fontSize="28px" mt="10px" color="orange.500">
+                    {event.title}
+                  </Heading>
+                  <Text
+                    mt="10px"
+                    fontSize="18px"
+                    fontStyle="italic"
+                    fontWeight="semibold"
+                  >
+                    {event.description}
+                  </Text>
+                  <Flex flexDir="row" gap="1.5" justify="center" mt="5">
+                    <Box>Start Time:</Box>
+                    <Box fontWeight="semibold">
+                      {event.startTime.substring(0, 10)}{" "}
+                      {event.startTime.substring(11, 16)}
+                    </Box>
+                  </Flex>
+                  <Flex flexDir="row" gap="1.5" justify="center">
+                    <Box>End Time:</Box>
+                    <Box fontWeight={"semibold"}>
+                      {event.endTime.substring(0, 10)}{" "}
+                      {event.endTime.substring(11, 16)}
+                    </Box>
+                  </Flex>
+                  <Box mt="10px">
+                    {categories.map((category) =>
+                      event.categoryIds?.includes(category.id) ? (
+                        <Tag
+                          p="8px"
+                          margin="1.5"
+                          mb="5"
+                          mt="5"
+                          backgroundColor="blue.300"
+                          size="md"
+                          variant="solid"
+                          textTransform="uppercase"
+                          fontWeight="bold"
+                          key={category}
+                        >
+                          {category.name}
+                        </Tag>
+                      ) : null
+                    )}
+                  </Box>
+                </CardBody>
               </Link>
-              <CardBody>
-                <p>Description {event.description}</p>
-                <p>{event.image}</p>
-                <p>
-                  Starttime: {event.startTime}
-                  Endtime: {event.endTime}
-                </p>
-                Categories:{" "}
-                {categories.map((category) =>
-                  event.categoryIds?.includes(category.id) ? (
-                    <>{category.name}</>
-                  ) : null
-                )}
-              </CardBody>
             </Card>
           ))}
       </SimpleGrid>
-    </>
+    </Container>
   );
 };
