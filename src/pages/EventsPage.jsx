@@ -35,7 +35,14 @@ export const EventsPage = () => {
       <SimpleGrid spacing={10} minChildWidth={"250px"}>
         {events &&
           events.map((event) => (
-            <Card key={event.id} maxW="sm" borderRadius="xl" cursor="pointer">
+            <Card
+              key={event.id}
+              maxW="sm"
+              borderRadius="xl"
+              cursor="pointer"
+              _hover={{ transform: "scale(1.05)" }}
+              transition="transform .4s"
+            >
               <Link to={`event/${event.id}`}>
                 <CardBody padding="0" align="center">
                   <Image
