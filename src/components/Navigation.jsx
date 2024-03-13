@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   return (
-    <Flex as="nav" gap="10px" justifyContent={"flex-end"}>
+    <Flex as="nav" gap="10px" justifyContent={"flex-end"} color="white">
       <Box>
         <Link to="/">Events</Link>
       </Box>
