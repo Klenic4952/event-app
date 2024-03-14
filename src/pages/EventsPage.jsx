@@ -8,9 +8,9 @@ import {
   Heading,
   Image,
   SimpleGrid,
-  Tag,
   Text,
 } from "@chakra-ui/react";
+import { Tag } from "../components/Tag";
 import { Link, useLoaderData } from "react-router-dom";
 
 //Display events
@@ -80,20 +80,9 @@ export const EventsPage = () => {
                   <Box mt="10px">
                     {categories.map((category) =>
                       event.categoryIds?.includes(category.id) ? (
-                        <Tag
-                          p="8px"
-                          margin="1.5"
-                          mb="5"
-                          mt="5"
-                          backgroundColor="#A5A726"
-                          size="md"
-                          variant="solid"
-                          textTransform="uppercase"
-                          fontWeight="bold"
-                          key={category}
-                        >
+                        <Tag key={category}>
                           {category.name}
-                        </Tag>
+                          </Tag>
                       ) : null
                     )}
                   </Box>
