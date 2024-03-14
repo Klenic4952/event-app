@@ -3,13 +3,15 @@ import {
   Box,
   Card,
   CardBody,
+  CardFooter,
   Container,
+  Divider,
   Flex,
   Heading,
   Image,
-  Tag,
   Text,
 } from "@chakra-ui/react";
+import { Tag } from "../components/Tag";
 import { useLoaderData } from "react-router-dom";
 
 export const loader = async ({ params }) => {
@@ -27,76 +29,97 @@ export const loader = async ({ params }) => {
 export const EventPage = () => {
   const { event, categories, users } = useLoaderData();
 
+  //Match user with createdBy
+  const userId = users.find((id) => {
+    return id.id === event.createdBy;
+  });
+
   return (
-    <Container 
-    maxWidth="100vh"
-    minHeight="100vh"
-    padding="0px"
-    ml="auto"
-    mr="auto">
+    <Container
+      maxWidth="100vh"
+      minHeight="100vh"
+      padding="0px"
+      ml="auto"
+      mr="auto"
+    >
       <Heading align="center" color="white" mt="20px" mb="60px">
         {event.title}
       </Heading>
       <Card
-        //size="lg"
-        w="700px"
+        w="750px"
         h="500px"
         bgColor="white"
         direction={{ base: "column", sm: "row" }}
         variant="outline"
       >
         <Image
-          //h="400px"
           objectFit="cover"
-          w="300px"
+          w="350px"
           //maxW={{ base: "100%", sm: "200px" }}
           src={event.image}
         />
-
         <CardBody>
           <Text
-            mt="10px"
-            fontSize="18px"
+            mt="15px"
+            fontSize="20px"
             fontStyle="italic"
-            fontWeight="semibold"
+            fontWeight="bold"
+            color="#803419"
           >
             {event.description}
           </Text>
-          <Flex flexDir="row" gap="1.5" mt="5">
-                    <Box>Start Time:</Box>
-                    <Box fontWeight="semibold">
-                      {event.startTime.substring(0, 10)}{" "}
-                      {event.startTime.substring(11, 16)}
-                    </Box>
-                  </Flex>
-                  <Flex flexDir="row" gap="1.5">
-                    <Box>End Time:</Box>
-                    <Box fontWeight={"semibold"}>
-                      {event.endTime.substring(0, 10)}{" "}
-                      {event.endTime.substring(11, 16)}
-                    </Box>
-                  </Flex>
-                  <Box mt="10px">
-                    {categories.map((category) =>
-                      event.categoryIds?.includes(category.id) ? (
-                        <Tag
-                          p="8px"
-                          margin="1.5"
-                          mb="5"
-                          mt="5"
-                          backgroundColor="#A5A726"
-                          size="md"
-                          variant="solid"
-                          textTransform="uppercase"
-                          fontWeight="bold"
-                          key={category}
-                        >
-                          {category.name}
-                        </Tag>
-                      ) : null
-                    )}
-                  </Box>
+          <Flex flexDir="row" gap="1.5" mt="5" fontSize="17px">
+            <Box>Start Time:</Box>
+            <Box fontWeight="semibold">
+              {event.startTime.substring(0, 10)}{" "}
+              {event.startTime.substring(11, 16)}
+            </Box>
+          </Flex>
+          <Flex flexDir="row" gap="1.5" fontSize="17px">
+            <Box>End Time:</Box>
+            <Box fontWeight={"semibold"}>
+              {event.endTime.substring(0, 10)} {event.endTime.substring(11, 16)}
+            </Box>
+          </Flex>
+          <Box mt="5px">
+            {categories.map((category) =>
+              event.categoryIds?.includes(category.id) ? (
+                <Tag key={category}>{category.name}</Tag>
+              ) : null
+            )}
+          </Box>
+          <Divider borderColor="gray.400" />
+          <Box>
+            <Text
+              mt="15px"
+              fontStyle="italic"
+              //fontWeight="semibold"
+              fontSize="17px"
+            >
+              {"Created by"}{" "}
+            </Text>
+            <Flex flexDir="column" align="center">
+              <Image
+                src={userId.image}
+                alt={userId.name}
+                boxSize={{ base: 85, md: 100, xl: 115 }}
+                borderRadius="full"
+              />
+              <Text 
+                fontSize={{ base: "10px", md: "15px", xl: "17px" }}
+                mt="10px"
+                fontWeight="semibold"
+                color="#803414"
+                >
+                {userId.name}
+              </Text>
+            </Flex>
+          </Box>
+          <Divider mt="10px"borderColor="gray.400" />
         </CardBody>
+        <CardFooter>
+
+        </CardFooter>
       </Card>
     </Container>
   );
