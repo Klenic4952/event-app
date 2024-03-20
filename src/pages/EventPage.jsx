@@ -1,9 +1,10 @@
 import React from "react";
 import {
   Box,
+  Button,
+  ButtonGroup,
   Card,
   CardBody,
-  CardFooter,
   Container,
   Divider,
   Flex,
@@ -12,7 +13,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Tag } from "../components/Tag";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 
 export const loader = async ({ params }) => {
   const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
@@ -58,7 +61,7 @@ export const EventPage = () => {
           //maxW={{ base: "100%", sm: "200px" }}
           src={event.image}
         />
-        <CardBody>
+        <CardBody color="#314447">
           <Text
             mt="15px"
             fontSize="20px"
@@ -88,7 +91,7 @@ export const EventPage = () => {
               ) : null
             )}
           </Box>
-          <Divider borderColor="gray.400" />
+          <Divider borderColor="#314447" />
           <Box>
             <Text
               mt="15px"
@@ -105,21 +108,38 @@ export const EventPage = () => {
                 boxSize={{ base: 85, md: 100, xl: 115 }}
                 borderRadius="full"
               />
-              <Text 
+              <Text
                 fontSize={{ base: "10px", md: "15px", xl: "17px" }}
                 mt="10px"
                 fontWeight="semibold"
-                color="#803414"
-                >
+                color="#803419"
+              >
                 {userId.name}
               </Text>
             </Flex>
           </Box>
-          <Divider mt="10px"borderColor="gray.400" />
+          <Divider mt="15px" borderColor="#314447" />
+          <Flex mt="20px" justifyContent="space-evenly">
+            <Link to={`/event/${event.id}/editevent`}>
+              <Button
+                size="sm"
+                variant="ghost"
+                leftIcon={<EditIcon />}
+                _hover={{ bg: "#A5A726", color: "white" }}
+              >
+                Edit event
+              </Button>
+            </Link>
+            <Button
+              size="sm"
+              variant="ghost"
+              leftIcon={<DeleteIcon />}
+              _hover={{ bg: "#803419", color: "white" }}
+            >
+              Delete Event
+            </Button>
+          </Flex>
         </CardBody>
-        <CardFooter>
-
-        </CardFooter>
       </Card>
     </Container>
   );
