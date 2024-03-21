@@ -94,11 +94,10 @@ export const EventPage = () => {
           <Box>
             <Text
               mt="15px"
-              fontStyle="italic"
               //fontWeight="semibold"
               fontSize="17px"
             >
-              {"Created by"}{" "}
+              {"Created by:"}{" "}
             </Text>
             <Flex flexDir="column" align="center">
               <Image
@@ -112,6 +111,7 @@ export const EventPage = () => {
                 mt="10px"
                 fontWeight="semibold"
                 color="#803419"
+                fontStyle="italic"
               >
                 {userId.name}
               </Text>
@@ -126,7 +126,7 @@ export const EventPage = () => {
                 leftIcon={<EditIcon />}
                 _hover={{ bg: "#A5A726", color: "white" }}
               >
-                Edit event
+                Event
               </Button>
             </Link>
             <Button
@@ -135,7 +135,7 @@ export const EventPage = () => {
               leftIcon={<DeleteIcon />}
               _hover={{ bg: "#803419", color: "white" }}
             >
-              Delete Event
+              Event
             </Button>
           </Flex>
         </CardBody>
