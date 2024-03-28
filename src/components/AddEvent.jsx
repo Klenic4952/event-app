@@ -47,7 +47,7 @@ export const AddEvent = () => {
       color="whiteAlpha.800"
     >
       <Form method="post">
-        <Heading>Add new event</Heading>
+        <Heading color="#A5A726">Add new event</Heading>
         <FormControl mt="15px">
           <FormLabel sx={labelStyles}>Title</FormLabel>
           <Input
