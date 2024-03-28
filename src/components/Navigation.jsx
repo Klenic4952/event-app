@@ -22,7 +22,7 @@ export const Navigation = () => {
         </Link>
       </Box>
       <Box>
-        <Link to="/addevents">
+        <Link to="/event/add">
           <Button variant="ghost" size="lg" leftIcon={<AddIcon boxSize="12px"/>} _hover={{ bg: "white", color: "#314447" }} >
             Event
           </Button>
