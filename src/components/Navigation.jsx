@@ -18,7 +18,7 @@ export const Navigation = () => {
     >
       <Box>
         <Link to="/">
-          <Button variant="ghost" size="lg" leftIcon={<ChevronLeftIcon/>}_hover="none">Events</Button>
+          <Button variant="ghost" size="lg" leftIcon={<ChevronLeftIcon/>}_hover={{}}>Events</Button>
         </Link>
       </Box>
       <Box>
