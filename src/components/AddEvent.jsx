@@ -46,7 +46,7 @@ export const AddEvent = () => {
       minHeight="130vh"
       color="whiteAlpha.800"
     >
-      <Form method="post" action="/event/add">
+      <Form method="post" action="/addevent">
         <Heading color="#A5A726">Add new event</Heading>
         <FormControl mt="15px">
           <FormLabel sx={labelStyles}>Title</FormLabel>

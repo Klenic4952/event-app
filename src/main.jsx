@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <EventPage />,
         loader: eventLoader,
       },
-      {path: '/event/add',
+      {path: '/addevent',
         element: <AddEvent />,
         loader: addEventLoader,
       }
