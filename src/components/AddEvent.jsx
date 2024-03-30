@@ -32,7 +32,7 @@ const onSubmit = (data) => {
 }
 
   const inputStyles = {
-    bg: "whiteAlpha.700",
+    bg: "#e6edff",
     fontSize: "17px",
     fontWeight: "semibold",
     color: "#314447",
