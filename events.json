@@ -50,7 +50,7 @@
       "createdBy": 2,
       "title": "Yoga",
       "description": "It's a bit of a stretch.",
-      "image": "new_yoga_picture.jpg",
+      "image": "https://ymcasouthflorida.org/wp-content/uploads/2024/02/private-yoga.jpg",
       "categoryIds": [3],
       "location": "Shavasana Yoga School",
       "startTime": "2023-03-09T06:00:00.000Z",
