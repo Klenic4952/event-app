@@ -29,11 +29,19 @@ export const AddEvent = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(data);
+    } catch (error) {
+      setError("root", {
+        message: "Adding event failed",
+      });
+    }
   };
 
   const inputStyles = {
@@ -186,7 +194,7 @@ export const AddEvent = () => {
             <Select
               placeholder="Select a user"
               color="#314447"
-              {...register("createdBy", {required: "true"})}
+              {...register("createdBy", { required: "true" })}
               mt="15px"
               sx={inputStyles}
               focusBorderColor="white"
@@ -204,9 +212,20 @@ export const AddEvent = () => {
             )}
           </FormLabel>
         </FormControl>
-        <Button type="submit" size="lg" bgColor="#A5A726" mt="30px">
-          Add Event
+        <Button
+          disabled={isSubmitting}
+          type="submit"
+          size="lg"
+          bgColor="#A5A726"
+          mt="30px"
+        >
+          {isSubmitting ? "Adding event..." : "Add Event"}
         </Button>
+        {errors.root && (
+              <Text mt="8px" color="red" fontSize="15px">
+                {errors.root.message}
+              </Text>
+            )}
       </Form>
     </Box>
   );
