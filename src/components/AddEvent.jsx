@@ -11,12 +11,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+// loader function to get users and categories for the form
 export const loader = async () => {
-  const categories = await fetch("http://localhost:3000/categories");
   const users = await fetch("http://localhost:3000/users");
+  const categories = await fetch("http://localhost:3000/categories");
 
   return {
     categories: await categories.json(),
@@ -25,7 +26,10 @@ export const loader = async () => {
 };
 
 export const AddEvent = () => {
-  const { categories, users } = useLoaderData();
+  // loader data from the back-end
+  const { users, categories } = useLoaderData();
+
+  // use react-hook-form
   const {
     register,
     handleSubmit,
@@ -33,16 +37,44 @@ export const AddEvent = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  // set up useNavigate hook
+  const navigate = useNavigate();
+
+  // define function to create an event
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      //send a request to the server to create a new event
+      const response = await fetch ("http://localhost:3000/events", {
+        method: "POST",
+        body: JSON.stringify(data, {createdBy: Number(data.createdBy)}),
+        headers: { "Content-type": "application/json" },
+      })
+
+      // build in a second for adding event
+     // await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // check if request was succesful
+      if (!response.ok) {
+        throw new Error(`Failed to add the event. Status: ${response.status}`);
+      }
+
+      // get the new event's ID from the server's response
+      const id = (await response.json()).id;
+
+      // use the navigate function to go to the new Event's page
+      navigate(`/event/${id}`);
+
       console.log(data);
+
     } catch (error) {
+      // handle any errors that might occur during this process
       setError("root", {
-        message: "Adding event failed",
+        message: "Adding event failed. Try again later",
       });
     }
   };
+
+
 
   const inputStyles = {
     bg: "#e6edff",
@@ -138,7 +170,7 @@ export const AddEvent = () => {
             sx={inputStyles}
             focusBorderColor="white"
           />
-          {errors.startTime && (
+          {errors.startTime && errors.startTime.type === "required" && (
             <Text mt="8px" color="red">
               Please add the date and start time to the event!
             </Text>
@@ -153,7 +185,7 @@ export const AddEvent = () => {
             sx={inputStyles}
             focusBorderColor="white"
           />
-          {errors.endTime && (
+          {errors.endTime && errors.endTime.type === "required" && (
             <Text mt="8px" color="red">
               Please add the date and end time to the event!
             </Text>
@@ -168,7 +200,7 @@ export const AddEvent = () => {
                 <FormLabel sx={labelStyles} key={id} mt="10px">
                   {name.charAt(0).toUpperCase() + name.slice(1)}
                   <Checkbox
-                    {...register("categoryIds", { required: true })}
+                    {...register("categoryIds", {}, { required: true })}
                     type="checkbox"
                     id={id}
                     value={id}
@@ -230,3 +262,4 @@ export const AddEvent = () => {
     </Box>
   );
 };
+
