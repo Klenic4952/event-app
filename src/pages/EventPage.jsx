@@ -80,7 +80,8 @@ export const EventPage = () => {
           <Flex flexDir="row" gap="1.5" fontSize="17px">
             <Box>End Time:</Box>
             <Box fontWeight={"semibold"}>
-              {event.endTime.substring(0, 10)} {event.endTime.substring(11, 16)}
+              {event.endTime.substring(0, 10)}{" "} 
+              {event.endTime.substring(11, 16)}
             </Box>
           </Flex>
           <Box mt="5px">
