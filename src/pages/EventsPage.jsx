@@ -80,7 +80,7 @@ export const EventsPage = () => {
                   <Box mt="10px">
                     {categories.map((category) =>
                       event.categoryIds?.includes(category.id) ? (
-                        <Tag key={category}>
+                        <Tag key={category.id}>
                           {category.name}
                           </Tag>
                       ) : null
