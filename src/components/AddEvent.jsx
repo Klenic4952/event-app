@@ -42,16 +42,21 @@ export const AddEvent = () => {
 
   // define function to create an event
   const onSubmit = async (data) => {
+    const { createdBy, categoryIds, ...otherFormData } = data;
+    const createdByNumber = parseInt(createdBy); // Ensure createdBy is a number
+    const categoryIdsNumber = parseInt(categoryIds); // Ensure categoryIds is a number
+    const eventData = { ...otherFormData, createdBy: createdByNumber, categoryIds: categoryIdsNumber };
+
     try {
       //send a request to the server to create a new event
-      const response = await fetch ("http://localhost:3000/events", {
+      const response = await fetch("http://localhost:3000/events", {
         method: "POST",
-        body: JSON.stringify(data, {createdBy: Number(data.createdBy)}),
+        body: JSON.stringify(eventData),
         headers: { "Content-type": "application/json" },
-      })
+      });
 
       // build in a second for adding event
-     // await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // check if request was succesful
       if (!response.ok) {
@@ -64,8 +69,7 @@ export const AddEvent = () => {
       // use the navigate function to go to the new Event's page
       navigate(`/event/${id}`);
 
-      console.log(data);
-
+      console.log(eventData);
     } catch (error) {
       // handle any errors that might occur during this process
       setError("root", {
@@ -73,8 +77,6 @@ export const AddEvent = () => {
       });
     }
   };
-
-
 
   const inputStyles = {
     bg: "#e6edff",
@@ -170,7 +172,7 @@ export const AddEvent = () => {
             sx={inputStyles}
             focusBorderColor="white"
           />
-          {errors.startTime && errors.startTime.type === "required" && (
+          {errors.startTime && (
             <Text mt="8px" color="red">
               Please add the date and start time to the event!
             </Text>
@@ -185,7 +187,7 @@ export const AddEvent = () => {
             sx={inputStyles}
             focusBorderColor="white"
           />
-          {errors.endTime && errors.endTime.type === "required" && (
+          {errors.endTime && (
             <Text mt="8px" color="red">
               Please add the date and end time to the event!
             </Text>
@@ -254,12 +256,11 @@ export const AddEvent = () => {
           {isSubmitting ? "Adding event..." : "Add Event"}
         </Button>
         {errors.root && (
-              <Text mt="8px" color="red" fontSize="15px">
-                {errors.root.message}
-              </Text>
-            )}
+          <Text mt="8px" color="red" fontSize="15px">
+            {errors.root.message}
+          </Text>
+        )}
       </Form>
     </Box>
   );
 };
-
