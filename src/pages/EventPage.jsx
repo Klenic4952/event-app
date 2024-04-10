@@ -35,7 +35,7 @@ export const EventPage = () => {
   const userId = users.find((id) => id.id === event.createdBy);
 
   //Match category with categoryId
-  const categoryId = categories.find((id) => id.id === event.categoryIds);
+  // const categoryId = categories.find((id) => id.id === event.categoryIds);
 
   return (
     <Container
@@ -81,11 +81,16 @@ export const EventPage = () => {
           <Flex flexDir="row" gap="1.5" fontSize="17px">
             <Box>End Time:</Box>
             <Box fontWeight={"semibold"}>
-              {event.endTime.substring(0, 10)} {event.endTime.substring(11, 16)}
+              {event.endTime.substring(0, 10)}{" "}
+              {event.endTime.substring(11, 16)}
             </Box>
           </Flex>
           <Box mt="5px">
-            <Tag key={categoryId}>{categoryId.name}</Tag>
+            {event.categoryIds.map((id) => (
+                <Tag key={id}>
+                  {categories.find((category) => category.id === id)?.name}
+                </Tag>
+              ))}
           </Box>
           <Divider borderColor="#314447" />
           <Box>
