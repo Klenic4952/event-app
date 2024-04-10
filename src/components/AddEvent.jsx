@@ -43,12 +43,19 @@ export const AddEvent = () => {
   // define function to create an event
   const onSubmit = async (data) => {
     const { createdBy, categoryIds, ...otherFormData } = data;
-    const createdByNumber = parseInt(createdBy); // Ensure createdBy is a number
-    const categoryIdsNumber = parseInt(categoryIds); // Ensure categoryIds is a number
-    const eventData = { ...otherFormData, createdBy: createdByNumber, categoryIds: categoryIdsNumber };
+
+    // ensure createdBy is a number
+    const createdByNumber = parseInt(createdBy); 
+
+     // ensure categoryIds is an array of numbers
+     const categoryIdsArray = Array.isArray(categoryIds)
+     ? categoryIds.map((id) => parseInt(id))
+     : [parseInt(categoryIds)];
+
+    const eventData = { ...otherFormData, createdBy: createdByNumber, categoryIds: categoryIdsArray };
 
     try {
-      //send a request to the server to create a new event
+      // send a request to the server to create a new event
       const response = await fetch("http://localhost:3000/events", {
         method: "POST",
         body: JSON.stringify(eventData),
@@ -202,10 +209,10 @@ export const AddEvent = () => {
                 <FormLabel sx={labelStyles} key={id} mt="10px">
                   {name.charAt(0).toUpperCase() + name.slice(1)}
                   <Checkbox
-                    {...register("categoryIds", {}, { required: true })}
+                    {...register("categoryIds", {required: true})}
                     type="checkbox"
                     id={id}
-                    value={id}
+                    value={id} 
                     mt="8px"
                     ml="10px"
                     mr="15px"
