@@ -32,9 +32,10 @@ export const EventPage = () => {
   const { event, categories, users } = useLoaderData();
 
   //Match user with createdBy
-  const userId = users.find((id) => {
-    return id.id === event.createdBy;
-  });
+  const userId = users.find((id) => id.id === event.createdBy);
+
+  //Match category with categoryId
+  const categoryId = categories.find((id) => id.id === event.categoryIds);
 
   return (
     <Container
@@ -80,16 +81,11 @@ export const EventPage = () => {
           <Flex flexDir="row" gap="1.5" fontSize="17px">
             <Box>End Time:</Box>
             <Box fontWeight={"semibold"}>
-              {event.endTime.substring(0, 10)}{" "} 
-              {event.endTime.substring(11, 16)}
+              {event.endTime.substring(0, 10)} {event.endTime.substring(11, 16)}
             </Box>
           </Flex>
           <Box mt="5px">
-            {categories.map((category) =>
-              event.categoryIds?.includes(category.id) ? (
-                <Tag key={category.id}>{category.name}</Tag>
-              ) : null
-            )}
+            <Tag key={categoryId}>{categoryId.name}</Tag>
           </Box>
           <Divider borderColor="#314447" />
           <Box>
