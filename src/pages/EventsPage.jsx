@@ -77,14 +77,15 @@ export const EventsPage = () => {
                       {event.endTime.substring(11, 16)}
                     </Box>
                   </Flex>
-                  <Box mt="10px">
-                    {categories.map((category) =>
-                      event.categoryIds?.includes(category.id) ? (
-                        <Tag key={category.id}>
-                          {category.name}
-                          </Tag>
-                      ) : null
-                    )}
+                  <Box mt="5px">
+                    {event.categoryIds.map((id) => (
+                        <Tag key={id}>
+                          {
+                            categories.find((category) => category.id === id)
+                              ?.name
+                          }
+                        </Tag>
+                      ))}
                   </Box>
                 </CardBody>
               </Link>
