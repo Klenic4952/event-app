@@ -87,7 +87,7 @@ export const EventPage = () => {
           <Box mt="5px">
             {categories.map((category) =>
               event.categoryIds?.includes(category.id) ? (
-                <Tag key={category}>{category.name}</Tag>
+                <Tag key={category.id}>{category.name}</Tag>
               ) : null
             )}
           </Box>
