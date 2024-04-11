@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Box,
   Card,
@@ -73,3 +74,12 @@ export const Events = ({ events, categories }) => {
     </SimpleGrid>
   );
 };
+
+//Prop validation
+Events.propTypes = {
+    events: PropTypes.array,
+    categories: PropTypes.array,
+    title: PropTypes.string,
+    id: PropTypes.number,
+    event: PropTypes.object,
+  };

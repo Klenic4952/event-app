@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Box,
   Card,
@@ -66,11 +67,7 @@ export const Event = ({ event, categories, users }) => {
           </Box>
           <Divider borderColor="#314447" />
           <Box>
-            <Text
-              mt="15px"
-              //fontWeight="semibold"
-              fontSize="17px"
-            >
+            <Text mt="15px" fontSize="17px">
               {"Created by:"}{" "}
             </Text>
             <Flex flexDir="column" align="center">
@@ -99,4 +96,14 @@ export const Event = ({ event, categories, users }) => {
       </Card>
     </>
   );
+};
+
+// prop validation
+Event.propTypes = {
+  events: PropTypes.array,
+  categories: PropTypes.array,
+  users: PropTypes.array,
+  title: PropTypes.string,
+  id: PropTypes.number,
+  event: PropTypes.object,
 };
