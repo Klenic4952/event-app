@@ -1,5 +1,15 @@
 import { Link, useNavigate} from "react-router-dom";
-import { Button, useToast } from "@chakra-ui/react";
+import { 
+  Button, 
+  useToast, 
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure
+ } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { EditIcon } from "@chakra-ui/icons";
 
@@ -11,6 +21,9 @@ export const ButtonsEvent = ({event}) => {
 
    // pop-up message hook
    const toast = useToast();
+
+   //Modal actions
+  const { isOpen, onOpen, onClose } = useDisclosure();
  
    //Delete request
    const handleDelete = async () => {
@@ -51,7 +64,7 @@ export const ButtonsEvent = ({event}) => {
         </Button>
       </Link>
       <Button
-        onClick={handleDelete}
+        onClick={onOpen}
         size="sm"
         variant="ghost"
         leftIcon={<DeleteIcon />}
@@ -59,6 +72,35 @@ export const ButtonsEvent = ({event}) => {
       >
         Event
       </Button>
-    </>
+   
+    <Modal isOpen={isOpen} onClose={onClose} size={{ lg: "lg" }}>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader color="#314447">
+        Are you sure you would like to delete this event?
+      </ModalHeader>
+      <ModalCloseButton />
+      <ModalFooter display="flex">
+        <Button
+          onClick={handleDelete}
+          color="white"
+          background="#A5A726"
+          mb="20px"
+          mr="10px"
+        >
+          Yes
+        </Button>
+        <Button
+          onClick={onClose}
+          color="white"
+          background="#803419"
+          mb="20px"
+        >
+          No
+        </Button>
+      </ModalFooter>
+    </ModalContent>
+  </Modal>
+  </>
   );
 };
