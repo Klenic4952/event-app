@@ -45,14 +45,18 @@ export const AddEvent = () => {
     const { createdBy, categoryIds, ...otherFormData } = data;
 
     // ensure createdBy is a number
-    const createdByNumber = parseInt(createdBy); 
+    const createdByNumber = parseInt(createdBy);
 
-     // ensure categoryIds is an array of numbers
-     const categoryIdsArray = Array.isArray(categoryIds)
-     ? categoryIds.map((id) => parseInt(id))
-     : [parseInt(categoryIds)];
+    // ensure categoryIds is an array of numbers
+    const categoryIdsArray = Array.isArray(categoryIds)
+      ? categoryIds.map((id) => parseInt(id))
+      : [parseInt(categoryIds)];
 
-    const eventData = { ...otherFormData, createdBy: createdByNumber, categoryIds: categoryIdsArray };
+    const eventData = {
+      ...otherFormData,
+      createdBy: createdByNumber,
+      categoryIds: categoryIdsArray,
+    };
 
     try {
       // send a request to the server to create a new event
@@ -75,8 +79,6 @@ export const AddEvent = () => {
 
       // use the navigate function to go to the new Event's page
       navigate(`/event/${id}`);
-
-      console.log(eventData);
     } catch (error) {
       // handle any errors that might occur during this process
       setError("root", {
@@ -209,10 +211,10 @@ export const AddEvent = () => {
                 <FormLabel sx={labelStyles} key={id} mt="10px">
                   {name.charAt(0).toUpperCase() + name.slice(1)}
                   <Checkbox
-                    {...register("categoryIds", {required: true})}
+                    {...register("categoryIds", { required: true })}
                     type="checkbox"
                     id={id}
-                    value={id} 
+                    value={id}
                     mt="8px"
                     ml="10px"
                     mr="15px"
