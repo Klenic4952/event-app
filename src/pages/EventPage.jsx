@@ -10,9 +10,10 @@ import {
   Heading,
   Image,
   Text,
+  useToast
 } from "@chakra-ui/react";
 import { Tag } from "../components/Tag";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { EditIcon } from "@chakra-ui/icons";
 
@@ -31,11 +32,41 @@ export const loader = async ({ params }) => {
 export const EventPage = () => {
   const { event, categories, users } = useLoaderData();
 
-  //Match user with createdBy
-  const userId = users.find((id) => id.id === event.createdBy);
+  // set up useNavigate hook
+  const navigate = useNavigate();
 
-  //Match category with categoryId
-  // const categoryId = categories.find((id) => id.id === event.categoryIds);
+  // pop-up message hook
+  const toast = useToast();
+
+  //Delete request
+  const handleDelete = async () => {
+    const response = await fetch(`http://localhost:3000/events/` + event.id, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      toast({
+        title: "Delete event",
+        description: "We have successfully deleted the event!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      navigate("/");
+    } else {
+      toast({
+        title: "Event wasn't deleted",
+        description: "Something went wrong!",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+
+  // match user with createdBy
+  const userId = users.find((id) => id.id === event.createdBy);
 
   return (
     <Container
@@ -81,16 +112,15 @@ export const EventPage = () => {
           <Flex flexDir="row" gap="1.5" fontSize="17px">
             <Box>End Time:</Box>
             <Box fontWeight={"semibold"}>
-              {event.endTime.substring(0, 10)}{" "}
-              {event.endTime.substring(11, 16)}
+              {event.endTime.substring(0, 10)} {event.endTime.substring(11, 16)}
             </Box>
           </Flex>
           <Box mt="5px">
             {event.categoryIds.map((id) => (
-                <Tag key={id}>
-                  {categories.find((category) => category.id === id)?.name}
-                </Tag>
-              ))}
+              <Tag key={id}>
+                {categories.find((category) => category.id === id)?.name}
+              </Tag>
+            ))}
           </Box>
           <Divider borderColor="#314447" />
           <Box>
@@ -132,6 +162,7 @@ export const EventPage = () => {
               </Button>
             </Link>
             <Button
+              onClick={handleDelete}
               size="sm"
               variant="ghost"
               leftIcon={<DeleteIcon />}
