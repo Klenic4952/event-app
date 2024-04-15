@@ -14,7 +14,7 @@ import React from "react";
 import { Form, useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-// loader function to get users and categories for the form
+  // loader function to get users and categories for the form
 export const loader = async () => {
   const users = await fetch("http://localhost:3000/users");
   const categories = await fetch("http://localhost:3000/categories");
