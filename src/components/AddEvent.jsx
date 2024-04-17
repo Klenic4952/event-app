@@ -66,9 +66,6 @@ export const AddEvent = () => {
         headers: { "Content-type": "application/json" },
       });
 
-      // build in a second for adding event
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-
       // check if request was succesful
       if (!response.ok) {
         throw new Error(`Failed to add the event. Status: ${response.status}`);
@@ -79,6 +76,7 @@ export const AddEvent = () => {
 
       // use the navigate function to go to the new Event's page
       navigate(`/event/${id}`);
+      
     } catch (error) {
       // handle any errors that might occur during this process
       setError("root", {
