@@ -28,7 +28,7 @@ export const loader = async ({ params }) => {
   };
 };
 
-export const EditEvent = ({ eventId }) => {
+export const EditEvent = () => {
   // loader data from the back-end
   const { event, categories, users } = useLoaderData();
 
@@ -65,13 +65,7 @@ export const EditEvent = ({ eventId }) => {
           .toISOString()
           .slice(0, 16);
 
-        // Fetch available categories
-        const selectedCategories = eventData.categoryIds.map((id) => {
-          return categories.find((category) => category.id === id);
-        });
-        // console.log(eventData.categoryIds)
-
-        console.log(selectedCategories);
+          console.log(eventData.categoryIds);
 
         // Set form values with fetched data
         setValue("title", eventData.title);
@@ -80,7 +74,7 @@ export const EditEvent = ({ eventId }) => {
         setValue("location", eventData.location);
         setValue("startTime", formattedStartTime);
         setValue("endTime", formattedEndTime);
-        setValue("categoryIds", selectedCategories);
+        setValue("categoryIds", eventData.categoryIds);
         setValue("createdBy", eventData.createdBy);
       } catch (error) {
         console.error("Error fetching event data:", error);
@@ -88,7 +82,9 @@ export const EditEvent = ({ eventId }) => {
       }
     };
     fetchData();
-  }, [eventId, setValue]);
+  }, [event.id, setValue]);
+
+    
 
   // set up useNavigate hook
   const navigate = useNavigate();
@@ -98,15 +94,31 @@ export const EditEvent = ({ eventId }) => {
 
   //PUT request to the backend
   const onSubmit = async (data) => {
-    // Handle form submission (e.g., update event data)
-    console.log(data);
+    const { createdBy, categoryIds, ...otherFormData } = data;
+
+    // ensure createdBy is a number
+    const createdByNumber = parseInt(createdBy);
+
+    // ensure categoryIds is an array of numbers
+    const categoryIdsArray = Array.isArray(categoryIds)
+      ? categoryIds.map((id) => parseInt(id))
+      : [parseInt(categoryIds)];
+
+    const editEventData = {
+      ...otherFormData,
+      createdBy: createdByNumber,
+      categoryIds: categoryIdsArray,
+    };
+  
     // Make API call to update the event with data
     try {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+      const response = await fetch(`http://localhost:3000/events/${event.id}`, {
         method: "PUT",
+        body: JSON.stringify(editEventData),
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(data),
       });
+
+      // check if request was succesful
       if (!response.ok) {
         toast({
           title: "Event didn't update",
@@ -116,7 +128,7 @@ export const EditEvent = ({ eventId }) => {
           isClosable: true,
           position: "top",
         });
-      }
+      } 
 
       toast({
         title: "Event updated",
@@ -130,7 +142,7 @@ export const EditEvent = ({ eventId }) => {
     } catch (error) {
       console.error("Error updating event:", error);
     }
-  };
+  }
 
   const inputStyles = {
     bg: "#e6edff",
@@ -153,7 +165,7 @@ export const EditEvent = ({ eventId }) => {
       color="whiteAlpha.800"
     >
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Heading color="#A5A726">Add new event</Heading>
+        <Heading color="#A5A726">Edit Event</Heading>
         <FormControl mt="15px">
           <FormLabel sx={labelStyles}>Title</FormLabel>
           <Input
@@ -307,7 +319,7 @@ export const EditEvent = ({ eventId }) => {
           bgColor="#A5A726"
           mt="30px"
         >
-          {isSubmitting ? "Adding event..." : "Add Event"}
+          {isSubmitting ? "Editing event..." : "Edit Event"}
         </Button>
         {errors.root && (
           <Text mt="8px" color="red" fontSize="15px">
