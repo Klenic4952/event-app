@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Heading } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
-import { Events } from "../components/Events";
+import { SearchFilter } from "../components/SearchFilter";
 
 //Display events
 export const loader = async () => {
@@ -20,9 +20,9 @@ export const EventsPage = () => {
   return (
     <Container maxW={{ base: "100%", lg: "85%" }}>
       <Heading align="center" mt="20px" mb="60px" fontSize="5xl" color="white">
-        All events
+        Events
       </Heading>
-      <Events events={events} categories={categories} />
+      <SearchFilter events={events} categories={categories}></SearchFilter>
     </Container>
   );
 };
