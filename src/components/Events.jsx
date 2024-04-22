@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 export const Events = ({ events, categories }) => {
   return (
-    <SimpleGrid spacing={10} minChildWidth={"250px"}>
+    <SimpleGrid spacing={10} minChildWidth={"250px"} p="15px">
       {events &&
         events.map((event) => (
           <Card
@@ -77,9 +77,9 @@ export const Events = ({ events, categories }) => {
 
 //Prop validation
 Events.propTypes = {
-    events: PropTypes.array,
-    categories: PropTypes.array,
-    title: PropTypes.string,
-    id: PropTypes.number,
-    event: PropTypes.object,
-  };
+  events: PropTypes.array,
+  categories: PropTypes.array,
+  title: PropTypes.string,
+  id: PropTypes.number,
+  event: PropTypes.object,
+};
