@@ -29,12 +29,14 @@ export const loader = async ({ params }) => {
 };
 
 export const EditEvent = () => {
+  // load data from the back-end
   const { event, categories, users } = useLoaderData();
 
   // use react-hook-form
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
     setValue, // function to set form values
   } = useForm();
@@ -47,6 +49,8 @@ export const EditEvent = () => {
         const response = await fetch(
           `http://localhost:3000/events/${event.id}`
         );
+
+        // check if request was succesful
         if (!response.ok) {
           throw new Error(
             `Failed to fetch event details: ${response.status} ${response.statusText}`
@@ -72,8 +76,10 @@ export const EditEvent = () => {
         setValue("categoryIds", eventData.categoryIds);
         setValue("createdBy", eventData.createdBy);
       } catch (error) {
-        console.error("Error fetching event data:", error);
-        // handle errors if needed
+        // handle any errors that might occur during this process
+        setError("root", {
+          message: "Fetching data event failed. Try again later",
+        });
       }
     };
     fetchData();
@@ -85,7 +91,7 @@ export const EditEvent = () => {
   // pop-up message hook
   const toast = useToast();
 
-  // PUT request to the backend
+  // define function to edit event
   const onSubmit = async (data) => {
     const { createdBy, categoryIds, ...otherFormData } = data;
 
@@ -111,7 +117,7 @@ export const EditEvent = () => {
         headers: { "Content-type": "application/json" },
       });
 
-      // check if request was succesful
+      // check if request was succesful and response to user
       if (!response.ok) {
         toast({
           title: "Event didn't update",
@@ -121,7 +127,7 @@ export const EditEvent = () => {
           isClosable: true,
           position: "top",
         });
-      }
+      } else {
 
       toast({
         title: "Event updated",
@@ -131,9 +137,14 @@ export const EditEvent = () => {
         isClosable: true,
         position: "top",
       });
+      // use the navigate function to go to updated page
       navigate(`/event/${event.id}`);
+    }
     } catch (error) {
-      console.error("Error updating event:", error);
+      // handle any errors that might occur during this process
+      setError("root", {
+        message: "Updating event failed. Try again later",
+      });
     }
   };
 
