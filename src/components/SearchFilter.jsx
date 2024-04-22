@@ -75,6 +75,6 @@ export const SearchFilter = ({ events, categories }) => {
 SearchFilter.propTypes = {
   events: PropTypes.array,
   categories: PropTypes.array,
-  onChange: PropTypes.function,
-  onClick: PropTypes.function
+  onChange: PropTypes.func,
+  onClick: PropTypes.func
 };
