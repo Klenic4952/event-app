@@ -8,7 +8,7 @@ export const Tag = ({ children, ...props }) => {
       mb="5"
       mt="5"
       backgroundColor="#A5A726"
-      size="md"
+      size={{base: "md", md: "lg"}}
       variant="solid"
       textTransform="uppercase"
       fontWeight="bold"
