@@ -1,6 +1,6 @@
 import {
-  Box,
   Button,
+  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -29,14 +29,12 @@ export const loader = async ({ params }) => {
 };
 
 export const EditEvent = () => {
-  // loader data from the back-end
   const { event, categories, users } = useLoaderData();
 
   // use react-hook-form
   const {
     register,
     handleSubmit,
-    //setError,
     formState: { errors, isSubmitting },
     setValue, // function to set form values
   } = useForm();
@@ -55,9 +53,8 @@ export const EditEvent = () => {
           );
         }
         const eventData = await response.json();
-        //console.log(eventData);
 
-        // Format dates to match "yyyy-MM-ddThh:mm" format
+        // format dates to match "yyyy-MM-ddThh:mm" format
         const formattedStartTime = new Date(eventData.startTime)
           .toISOString()
           .slice(0, 16);
@@ -65,9 +62,7 @@ export const EditEvent = () => {
           .toISOString()
           .slice(0, 16);
 
-          console.log(eventData.categoryIds);
-
-        // Set form values with fetched data
+        // set form values with fetched data
         setValue("title", eventData.title);
         setValue("description", eventData.description);
         setValue("image", eventData.image);
@@ -78,13 +73,11 @@ export const EditEvent = () => {
         setValue("createdBy", eventData.createdBy);
       } catch (error) {
         console.error("Error fetching event data:", error);
-        // Handle errors if needed (e.g., setError)
+        // handle errors if needed
       }
     };
     fetchData();
   }, [event.id, setValue]);
-
-    
 
   // set up useNavigate hook
   const navigate = useNavigate();
@@ -92,7 +85,7 @@ export const EditEvent = () => {
   // pop-up message hook
   const toast = useToast();
 
-  //PUT request to the backend
+  // PUT request to the backend
   const onSubmit = async (data) => {
     const { createdBy, categoryIds, ...otherFormData } = data;
 
@@ -109,8 +102,8 @@ export const EditEvent = () => {
       createdBy: createdByNumber,
       categoryIds: categoryIdsArray,
     };
-  
-    // Make API call to update the event with data
+
+    // update the event with data
     try {
       const response = await fetch(`http://localhost:3000/events/${event.id}`, {
         method: "PUT",
@@ -128,7 +121,7 @@ export const EditEvent = () => {
           isClosable: true,
           position: "top",
         });
-      } 
+      }
 
       toast({
         title: "Event updated",
@@ -142,28 +135,25 @@ export const EditEvent = () => {
     } catch (error) {
       console.error("Error updating event:", error);
     }
-  }
+  };
 
+  //styles for the labels and inputfields
   const inputStyles = {
+    width: { base: "350px", sm: "450px", md: "500px", lg: "800px" },
     bg: "#e6edff",
-    fontSize: "17px",
+    fontSize: { base: "14px", sm: "15px", lg: "16px" },
     fontWeight: "semibold",
     color: "#314447",
   };
 
   const labelStyles = {
-    fontSize: "20px",
+    width: { base: "325px", sm: "425px", md: "475px", lg: "750px" },
+    fontSize: { base: "15px", sm: "17px", lg: "18px" },
     mt: "25px",
   };
 
   return (
-    <Box
-      marginLeft="auto"
-      marginRight="auto"
-      width="500px"
-      minHeight="130vh"
-      color="whiteAlpha.800"
-    >
+    <Center align="center" p="10px" pb="30px" color="whiteAlpha.800">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Heading color="#A5A726">Edit Event</Heading>
         <FormControl mt="15px">
@@ -261,61 +251,60 @@ export const EditEvent = () => {
         </FormControl>
 
         <FormControl mt="15px">
-          <FormLabel sx={labelStyles}>
-            Categories:
-            <Flex>
-              {categories.map(({ name, id }) => (
-                <FormLabel sx={labelStyles} key={id} mt="10px">
-                  {name.charAt(0).toUpperCase() + name.slice(1)}
-                  <Checkbox
-                    {...register("categoryIds", { required: true })}
-                    type="checkbox"
-                    id={id}
-                    value={id}
-                    mt="8px"
-                    ml="10px"
-                    mr="15px"
-                    colorScheme="blackAlpha"
-                  />
-                  {errors.categoryIds && (
-                    <Text mt="8px" color="red" fontSize="15px">
-                      Please choose at least one categorie!
-                    </Text>
-                  )}
-                </FormLabel>
-              ))}
-            </Flex>
-          </FormLabel>
+          <FormLabel sx={labelStyles}>Categories:</FormLabel>
+          <Flex justifyContent="center" gap="20px">
+            {categories.map(({ name, id }) => (
+              <FormLabel
+                fontSize={{ base: "15px", sm: "17px", lg: "18px" }}
+                key={id}
+                mt="10px"
+              >
+                {name.charAt(0).toUpperCase() + name.slice(1)}
+                <Checkbox
+                  {...register("categoryIds", { required: true })}
+                  type="checkbox"
+                  id={id}
+                  value={id}
+                  mt={{ base: "4px", sm: "6px", lg: "7px" }}
+                  ml="7px"
+                  colorScheme="blackAlpha"
+                />
+                {errors.categoryIds && (
+                  <Text mt="8px" color="red" fontSize="15px">
+                    Please choose at least one categorie!
+                  </Text>
+                )}
+              </FormLabel>
+            ))}
+          </Flex>
         </FormControl>
 
         <FormControl mt="15px">
-          <FormLabel sx={labelStyles}>
-            Created by:
-            <Select
-              placeholder="Select a user"
-              color="#314447"
-              {...register("createdBy", { required: "true" })}
-              mt="15px"
-              sx={inputStyles}
-              focusBorderColor="white"
-            >
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.name}
-                </option>
-              ))}
-            </Select>
-            {errors.createdBy && (
-              <Text mt="8px" color="red" fontSize="15px">
-                Please select a user!
-              </Text>
-            )}
-          </FormLabel>
+          <FormLabel sx={labelStyles}>Created by:</FormLabel>
+          <Select
+            placeholder="Select a user"
+            color="#314447"
+            {...register("createdBy", { required: "true" })}
+            mt="15px"
+            sx={inputStyles}
+            focusBorderColor="white"
+          >
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
+              </option>
+            ))}
+          </Select>
+          {errors.createdBy && (
+            <Text sx="inputStyles" mt="8px" color="red" fontSize="15px">
+              Please select a user!
+            </Text>
+          )}
         </FormControl>
         <Button
+          size={{ base: "md", lg: "lg" }}
           disabled={isSubmitting}
           type="submit"
-          size="lg"
           bgColor="#A5A726"
           mt="30px"
         >
@@ -327,6 +316,6 @@ export const EditEvent = () => {
           </Text>
         )}
       </Form>
-    </Box>
+    </Center>
   );
 };
