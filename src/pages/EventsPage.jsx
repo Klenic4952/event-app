@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { SearchFilter } from "../components/SearchFilter";
 
@@ -18,11 +18,11 @@ export const EventsPage = () => {
   const { events, categories } = useLoaderData();
 
   return (
-    <Container maxW={{ base: "100%", lg: "85%" }}>
+    <>
       <Heading align="center" mt="20px" mb="60px" fontSize="5xl" color="white">
         Events
       </Heading>
       <SearchFilter events={events} categories={categories}></SearchFilter>
-    </Container>
+    </>
   );
 };
