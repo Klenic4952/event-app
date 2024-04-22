@@ -6,10 +6,10 @@ import { SearchBar } from "./SearchBar";
 import { ButtonFilter } from "./ButtonFilter";
 
 export const SearchFilter = ({ events, categories }) => {
-  // State for searchfield
+  // state for searchfield
   const [searchField, setSearchField] = useState("");
 
-  // Filter and event handler for searchbar and categories filter
+  // filter and event handler for searchbar and categories
   const matchedEvents = events.filter((event) => {
     return (
       event.title.toLowerCase().includes(searchField.toLowerCase()) ||
@@ -17,7 +17,7 @@ export const SearchFilter = ({ events, categories }) => {
     );
   });
 
-  // Setting value for input
+  // setting value for input
   const handleChange = (event) => {
     setSearchField(event.target.value);
   };
@@ -75,4 +75,6 @@ export const SearchFilter = ({ events, categories }) => {
 SearchFilter.propTypes = {
   events: PropTypes.array,
   categories: PropTypes.array,
+  onChange: PropTypes.function,
+  onClick: PropTypes.function
 };
