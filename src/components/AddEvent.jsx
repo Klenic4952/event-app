@@ -9,6 +9,7 @@ import {
   Input,
   Select,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { Form, useLoaderData, useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ export const loader = async () => {
 };
 
 export const AddEvent = () => {
-  // loader data from the back-end
+  // load data from the back-end
   const { users, categories } = useLoaderData();
 
   // use react-hook-form
@@ -39,6 +40,9 @@ export const AddEvent = () => {
 
   // set up useNavigate hook
   const navigate = useNavigate();
+
+  // pop-up message hook
+  const toast = useToast();
 
   // define function to create an event
   const onSubmit = async (data) => {
@@ -66,17 +70,33 @@ export const AddEvent = () => {
         headers: { "Content-type": "application/json" },
       });
 
+       // get the new event's ID from the server's response
+       const id = (await response.json()).id;
+
       // check if request was succesful
       if (!response.ok) {
-        throw new Error(`Failed to add the event. Status: ${response.status}`);
+        toast({
+          title: "Adding the event wasn't successful",
+          description: "Something went wrong!",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
+      } else {
+        if (response.ok) {
+          toast({
+            title: "Event added",
+            description: "We have successfully created the event for you!",
+            status: "success",
+            duration: 10000,
+            isClosable: true,
+            position: "top",
+          });
       }
-
-      // get the new event's ID from the server's response
-      const id = (await response.json()).id;
-
       // use the navigate function to go to the new Event's page
       navigate(`/event/${id}`);
-      
+      }
     } catch (error) {
       // handle any errors that might occur during this process
       setError("root", {
@@ -85,15 +105,18 @@ export const AddEvent = () => {
     }
   };
 
+  //styles for the labels and inputfields
   const inputStyles = {
+    width: { base: "350px", sm: "450px", md: "500px", lg: "800px" },
     bg: "#e6edff",
-    fontSize: "17px",
+    fontSize: { base: "14px", sm: "15px", lg: "16px" },
     fontWeight: "semibold",
     color: "#314447",
   };
 
   const labelStyles = {
-    fontSize: "20px",
+    width: { base: "325px", sm: "425px", md: "475px", lg: "750px" },
+    fontSize: { base: "15px", sm: "17px", lg: "18px" },
     mt: "25px",
   };
 
