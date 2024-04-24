@@ -23,6 +23,7 @@ export const Events = ({ events, categories }) => {
             maxW="sm"
             borderRadius="xl"
             cursor="pointer"
+            borderColor="#314447"
             _hover={{ transform: "scale(1.05)" }}
             transition="transform .4s"
           >
