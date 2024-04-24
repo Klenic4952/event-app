@@ -1,8 +1,9 @@
 import { Center, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate, useLoaderData} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { EventForm } from "./EventForm";
+
 
 // loader function to get event, categories and users for the form
 export const loader = async ({ params }) => {
@@ -155,7 +156,8 @@ export const EditEvent = () => {
         errors={errors}
         categories={categories}
         users={users}
-        isSubmitting={isSubmitting ? "Editing event..." : "Edit Event"}
+        event={event}
+        isSubmitting={isSubmitting ? "Saving event..." : "Edit Event"}
       />
     </Center>
   );
