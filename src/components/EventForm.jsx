@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   Flex,
   FormControl,
@@ -9,7 +8,8 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
+import { EventButton } from "./EventButton";
 
 export const EventForm = ({
   handleSubmit,
@@ -17,6 +17,7 @@ export const EventForm = ({
   errors,
   categories,
   users,
+  event,
   isSubmitting,
 }) => {
   //styles for the labels and inputfields
@@ -32,16 +33,6 @@ export const EventForm = ({
     width: { base: "325px", sm: "425px", md: "475px", lg: "750px" },
     fontSize: { base: "15px", sm: "17px", lg: "18px" },
     mt: "25px",
-  };
-
-  const buttonStyles = {
-    variant: "unstyled",
-    size: { base: "md", lg: "lg" },
-    width:"130px",
-    fontSize: "18px",
-    type: "submit",
-    bg: "#A5A726",
-    mt: "30px",
   };
 
   return (
@@ -192,9 +183,14 @@ export const EventForm = ({
           </Text>
         )}
       </FormControl>
-      <Button disabled={isSubmitting} sx={buttonStyles}>
-        {isSubmitting}
-      </Button>
+      <Flex as="nav" justifyContent="center" gap="15px">
+        <EventButton disabled={isSubmitting}>{isSubmitting}</EventButton>
+        <Link to={`/event/${event.id}`}>
+          <EventButton _hover={{ bg: "#803419", color: "white" }}>
+            Cancel Edit
+          </EventButton>
+        </Link>
+      </Flex>
       {errors.root && (
         <Text mt="8px" color="red" fontSize="15px">
           {errors.root.message}
