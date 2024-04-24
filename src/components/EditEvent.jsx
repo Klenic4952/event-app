@@ -155,7 +155,7 @@ export const EditEvent = () => {
         errors={errors}
         categories={categories}
         users={users}
-        isSubmitting={isSubmitting}
+        isSubmitting={isSubmitting ? "Editing event..." : "Edit Event"}
       />
     </Center>
   );
