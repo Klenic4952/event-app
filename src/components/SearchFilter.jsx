@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Events } from "./Events";
 import { Flex, FormLabel } from "@chakra-ui/react";
 import { SearchBar } from "./SearchBar";
-import { ButtonFilter } from "./ButtonFilter";
+import { SearchButton } from "./SearchButton";
 
 export const SearchFilter = ({ events, categories }) => {
   // state for searchfield
@@ -48,17 +48,17 @@ export const SearchFilter = ({ events, categories }) => {
             justifyContent="center"
           >
             {categories.map(({ id }) => (
-              <ButtonFilter key={id} value={id} onClick={handleChange}>
+              <SearchButton key={id} value={id} onClick={handleChange}>
                 {categories.find((category) => category.id === id)?.name}
-              </ButtonFilter>
+              </SearchButton>
             ))}
-            <ButtonFilter
+            <SearchButton
               color="#314447"
               mt={{ base: "20px", sm: "0px" }}
               onClick={() => setSearchField("")}
             >
               {"All events"}
-            </ButtonFilter>
+            </SearchButton>
           </Flex>
         </FormLabel>
       </Flex>
