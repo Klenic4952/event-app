@@ -2,7 +2,7 @@ import { Center, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { EventForm } from "./EventForm";
+import { FormEvent } from "./FormEvent";
 
 // loader function to get users and categories for the form
 export const loader = async () => {
@@ -96,7 +96,7 @@ export const AddEvent = () => {
 
   return (
     <Center align="center" p="10px" pb="30px" color="whiteAlpha.800">
-      <EventForm
+      <FormEvent
         handleSubmit={handleSubmit(onSubmit)}
         register={register}
         errors={errors}
