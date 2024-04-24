@@ -10,7 +10,6 @@ export const Navigation = () => {
       gap="10px"
       justifyContent="flex-end"
       color="white"
-      fontSize="22px"
       p="15px"
     >
       <Box>
@@ -18,6 +17,7 @@ export const Navigation = () => {
           <Button
             variant="ghost"
             size="lg"
+            fontSize={{base: "18px", md: "20px"}}
             leftIcon={<ChevronLeftIcon />}
             _hover={{}}
           >
@@ -30,6 +30,7 @@ export const Navigation = () => {
           <Button
             variant="ghost"
             size="lg"
+            fontSize={{base: "18px", md: "20px"}}
             leftIcon={<AddIcon boxSize="12px" />}
             _hover={{ bg: "white", color: "#314447" }}
           >
