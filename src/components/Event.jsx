@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Tag } from "../components/Tag";
-import { ButtonsEvent } from "./ButtonsEvent";
+import { EventPageButtons } from "./EventPageButtons";
 
 export const Event = ({ event, categories, users }) => {
   // match user with createdBy
@@ -97,7 +97,7 @@ export const Event = ({ event, categories, users }) => {
           </Box>
           <Divider mt="15px" borderColor="#314447" />
           <Flex mt="20px" justifyContent="space-evenly">
-            <ButtonsEvent event={event} />
+            <EventPageButtons event={event} />
           </Flex>
         </CardBody>
       </Card>
