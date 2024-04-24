@@ -30,6 +30,7 @@ export const Event = ({ event, categories, users }) => {
         bgColor="white"
         direction={{ base: "column", sm: "row", md: "row" }}
         variant="outline"
+        borderColor="#314447"
       >
         <Image objectFit="cover" w="350px" maxW="100%" src={event.image} />
         <CardBody color="#314447">
