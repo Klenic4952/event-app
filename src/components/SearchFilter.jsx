@@ -44,7 +44,7 @@ export const SearchFilter = ({ events, categories }) => {
             display="flex"
             wrap="wrap"
             flexDirection="row"
-            columnGap={5}
+            gap={5}
             justifyContent="center"
           >
             {categories.map(({ id }) => (
@@ -54,7 +54,6 @@ export const SearchFilter = ({ events, categories }) => {
             ))}
             <SearchButton
               color="#314447"
-              mt={{ base: "20px", sm: "0px" }}
               onClick={() => setSearchField("")}
             >
               {"All events"}
