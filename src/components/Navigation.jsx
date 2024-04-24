@@ -3,10 +3,7 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-
 export const Navigation = () => {
-
   return (
     <Flex
       as="nav"
@@ -18,17 +15,27 @@ export const Navigation = () => {
     >
       <Box>
         <Link to="/">
-          <Button variant="ghost" size="lg" leftIcon={<ChevronLeftIcon/>}_hover={{}}>Events</Button>
+          <Button
+            variant="ghost"
+            size="lg"
+            leftIcon={<ChevronLeftIcon />}
+            _hover={{}}
+          >
+            Events
+          </Button>
         </Link>
       </Box>
       <Box>
         <Link to="/addevent">
-          <Button variant="ghost" size="lg" leftIcon={<AddIcon boxSize="12px"/>} _hover={{ bg: "white", color: "#314447" }} >
+          <Button
+            variant="ghost"
+            size="lg"
+            leftIcon={<AddIcon boxSize="12px" />}
+            _hover={{ bg: "white", color: "#314447" }}
+          >
             Event
           </Button>
         </Link>
-        
-    
       </Box>
     </Flex>
   );
