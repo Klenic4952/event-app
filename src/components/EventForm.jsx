@@ -19,7 +19,6 @@ export const EventForm = ({
   users,
   isSubmitting,
 }) => {
-    
   //styles for the labels and inputfields
   const inputStyles = {
     width: { base: "350px", sm: "450px", md: "500px", lg: "800px" },
@@ -33,6 +32,16 @@ export const EventForm = ({
     width: { base: "325px", sm: "425px", md: "475px", lg: "750px" },
     fontSize: { base: "15px", sm: "17px", lg: "18px" },
     mt: "25px",
+  };
+
+  const buttonStyles = {
+    variant: "unstyled",
+    size: { base: "md", lg: "lg" },
+    width:"130px",
+    fontSize: "18px",
+    type: "submit",
+    bg: "#A5A726",
+    mt: "30px",
   };
 
   return (
@@ -183,14 +192,8 @@ export const EventForm = ({
           </Text>
         )}
       </FormControl>
-      <Button
-        size={{ base: "md", lg: "lg" }}
-        disabled={isSubmitting}
-        type="submit"
-        bgColor="#A5A726"
-        mt="30px"
-      >
-        {isSubmitting ? "Editing event..." : "Edit Event"}
+      <Button disabled={isSubmitting} sx={buttonStyles}>
+        {isSubmitting}
       </Button>
       {errors.root && (
         <Text mt="8px" color="red" fontSize="15px">
