@@ -2,7 +2,7 @@ import { Center, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useNavigate, useLoaderData} from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { EventForm } from "./EventForm";
+import { FormEvent } from "./FormEvent";
 
 
 // loader function to get event, categories and users for the form
@@ -150,7 +150,7 @@ export const EditEvent = () => {
       pb="30px"
       color="whiteAlpha.800"
     >
-      <EventForm
+      <FormEvent
         handleSubmit={handleSubmit(onSubmit)}
         register={register}
         errors={errors}
