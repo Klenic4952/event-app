@@ -4,8 +4,8 @@ import { Button } from "@chakra-ui/react";
 export const ButtonFilter = ({ children, ...props }) => {
   return (
     <Button
-      variant={"unstyled"}
-      w="auto"
+      variant="unstyled"
+      w="120px"
       pl="10px"
       pr="10px"
       color="white"
