@@ -150,6 +150,7 @@ export const FormEvent = ({
                 mt={{ base: "4px", sm: "6px", lg: "7px" }}
                 ml="7px"
                 colorScheme="blackAlpha"
+                defaultChecked={event.categoryIds.includes(id)}
               />
               {errors.categoryIds && (
                 <Text mt="8px" color="red" fontSize="15px">
@@ -187,7 +188,7 @@ export const FormEvent = ({
         <FormButton disabled={isSubmitting}>{isSubmitting}</FormButton>
         <Link to={`/event/${event.id}`}>
           <FormButton _hover={{ bg: "#803419", color: "white" }}>
-            Cancel Edit
+            Cancel
           </FormButton>
         </Link>
       </Flex>
