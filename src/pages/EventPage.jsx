@@ -8,6 +8,11 @@ export const loader = async ({ params }) => {
   const categories = await fetch("http://localhost:3000/categories");
   const users = await fetch("http://localhost:3000/users");
 
+  // check if request was succesful
+  if (!event.ok) {
+    throw Error("Could not find that event")
+  }
+
   return {
     event: await event.json(),
     categories: await categories.json(),
