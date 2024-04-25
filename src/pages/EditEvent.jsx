@@ -41,10 +41,9 @@ export const EditEvent = () => {
 
         // check if request was succesful
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch event details: ${response.status} ${response.statusText}`
-          );
+          throw Error("Could not find event-details");
         }
+
         const eventData = await response.json();
 
         // format dates to match "yyyy-MM-ddThh:mm" format
@@ -67,7 +66,7 @@ export const EditEvent = () => {
       } catch (error) {
         // handle any errors that might occur during this process
         setError("root", {
-          message: "Fetching data event failed. Try again later",
+          message: "Could not find event-details. Try again later",
         });
       }
     };
