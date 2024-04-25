@@ -8,6 +8,11 @@ export const loader = async () => {
   const events = await fetch("http://localhost:3000/events");
   const categories = await fetch("http://localhost:3000/categories");
 
+  // check if request was succesful
+  if (!events.ok) {
+    throw Error("There are no events found")
+  }
+
   return {
     events: await events.json(),
     categories: await categories.json(),
