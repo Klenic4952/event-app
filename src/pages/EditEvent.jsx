@@ -157,6 +157,8 @@ export const EditEvent = () => {
         users={users}
         event={event}
         isSubmitting={isSubmitting ? "Saving event..." : "Edit Event"}
+        title={"Edit Event"}
+        to={`/event/${event.id}`}
       />
     </Center>
   );
