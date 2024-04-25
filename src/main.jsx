@@ -8,6 +8,7 @@ import { EditEvent, loader as editEventLoader } from "./pages/EditEvent";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root } from "./components/Root";
+import { LoaderErrors } from "./components/LoaderErrors";
 
 const router = createBrowserRouter([
   {
@@ -18,16 +19,19 @@ const router = createBrowserRouter([
         path: "/",
         element: <EventsPage />,
         loader: eventListLoader,
+        errorElement: <LoaderErrors />,
       },
       {
         path: "/event/:eventId",
         element: <EventPage />,
         loader: eventLoader,
+        errorElement: <LoaderErrors />,
       },
       {
         path: "/event/:eventId/editevent",
         element: <EditEvent />,
         loader: editEventLoader,
+        errorElement: <LoaderErrors />,
       },
       { path: "/addevent",
         element: <AddEvent />, 
