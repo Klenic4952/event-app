@@ -34,7 +34,7 @@ export const Navigation = () => {
             leftIcon={<AddIcon boxSize="12px" />}
             _hover={{ bg: "white", color: "#314447" }}
           >
-            Event
+            Add Event
           </Button>
         </Link>
       </Box>
