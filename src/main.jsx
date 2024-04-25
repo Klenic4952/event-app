@@ -29,7 +29,10 @@ const router = createBrowserRouter([
         element: <EditEvent />,
         loader: editEventLoader,
       },
-      { path: "/addevent", element: <AddEvent />, loader: addEventLoader },
+      { path: "/addevent",
+        element: <AddEvent />, 
+        loader: addEventLoader
+      },
     ],
   },
 ]);
