@@ -20,6 +20,7 @@ export const FormEvent = ({
   event,
   isSubmitting,
   title,
+  to,
 }) => {
   //styles for the labels and inputfields
   const inputStyles = {
@@ -151,7 +152,9 @@ export const FormEvent = ({
                 mt={{ base: "4px", sm: "6px", lg: "7px" }}
                 ml="7px"
                 colorScheme="blackAlpha"
-                defaultChecked={defaultChecked}
+                defaultChecked={
+                  event && event.categoryIds && event.categoryIds.includes(id)
+                }
               />
               {errors.categoryIds && (
                 <Text mt="8px" color="red" fontSize="15px">
@@ -187,7 +190,7 @@ export const FormEvent = ({
       </FormControl>
       <Flex as="nav" justifyContent="center" gap="15px">
         <FormButton disabled={isSubmitting}>{isSubmitting}</FormButton>
-        <Link to={`/event/${event.id}`}>
+        <Link to={to}>
           <FormButton _hover={{ bg: "#803419", color: "white" }}>
             Cancel
           </FormButton>
