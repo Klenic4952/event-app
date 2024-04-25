@@ -5,13 +5,11 @@ import { useForm } from "react-hook-form";
 import { FormEvent } from "../components/FormEvent";
 
 // loader function to get users and categories for the form
-export const loader = async ({params}) => {
-  const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
-  const users = await fetch("http://localhost:3000/users");
+export const loader = async () => {
   const categories = await fetch("http://localhost:3000/categories");
+  const users = await fetch("http://localhost:3000/users");
 
   return {
-    event: await event.json(),
     categories: await categories.json(),
     users: await users.json(),
   };
@@ -19,9 +17,9 @@ export const loader = async ({params}) => {
 
 export const AddEvent = () => {
   // load data from the back-end
-  const { event, users, categories } = useLoaderData();
+  const { users, categories } = useLoaderData();
 
-  // use react-hook-form
+   // use react-hook-form
   const {
     register,
     handleSubmit,
@@ -104,9 +102,10 @@ export const AddEvent = () => {
         errors={errors}
         categories={categories}
         users={users}
-        event={event}
-        isSubmitting={isSubmitting ? "Adding event..." : "Add Event"}
-      />
+        isSubmitting={isSubmitting ? "Saving event..." : "Add Event"}
+        title={"Add Event"}
+        to={`/`}
+        />
     </Center>
   );
 };
