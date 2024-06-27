@@ -6,9 +6,9 @@ import { FormEvent } from "../components/FormEvent";
 
 // loader function to get event, categories and users for the form
 export const loader = async ({ params }) => {
-  const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
-  const categories = await fetch("http://localhost:3000/categories");
-  const users = await fetch("http://localhost:3000/users");
+  const event = await fetch(`https://my-json-server.typicode.com/Klenic4952/event-app/events/${params.eventId}`);
+  const categories = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/categories");
+  const users = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/users");
 
   return {
     event: await event.json(),
@@ -36,7 +36,7 @@ export const EditEvent = () => {
       // fetch event details
       try {
         const response = await fetch(
-          `http://localhost:3000/events/${event.id}`
+          `https://my-json-server.typicode.com/Klenic4952/event-app/events/${event.id}`
         );
 
         // check if request was succesful
@@ -104,7 +104,7 @@ export const EditEvent = () => {
 
     // update the event with data
     try {
-      const response = await fetch(`http://localhost:3000/events/${event.id}`, {
+      const response = await fetch(`https://my-json-server.typicode.com/Klenic4952/event-app/events/${event.id}`, {
         method: "PUT",
         body: JSON.stringify(editEventData),
         headers: { "Content-type": "application/json" },

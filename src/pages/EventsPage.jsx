@@ -5,8 +5,8 @@ import { SearchFilter } from "../components/SearchFilter";
 
 //Display events
 export const loader = async () => {
-  const events = await fetch("http://localhost:3000/events");
-  const categories = await fetch("http://localhost:3000/categories");
+  const events = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/events");
+  const categories = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/categories");
 
   // check if request was succesful
   if (!events.ok) {

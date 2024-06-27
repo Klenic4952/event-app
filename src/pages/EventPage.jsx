@@ -4,9 +4,9 @@ import { useLoaderData } from "react-router-dom";
 import { Event } from "../components/Event";
 
 export const loader = async ({ params }) => {
-  const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
-  const categories = await fetch("http://localhost:3000/categories");
-  const users = await fetch("http://localhost:3000/users");
+  const event = await fetch(`https://my-json-server.typicode.com/Klenic4952/event-app/events/${params.eventId}`);
+  const categories = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/categories");
+  const users = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/users");
 
   // check if request was succesful
   if (!event.ok) {

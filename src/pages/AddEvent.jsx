@@ -6,8 +6,8 @@ import { FormEvent } from "../components/FormEvent";
 
 // loader function to get users and categories for the form
 export const loader = async () => {
-  const categories = await fetch("http://localhost:3000/categories");
-  const users = await fetch("http://localhost:3000/users");
+  const categories = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/categories");
+  const users = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/users");
 
   return {
     categories: await categories.json(),
@@ -53,7 +53,7 @@ export const AddEvent = () => {
 
     try {
       // send a request to the server to create a new event
-      const response = await fetch("http://localhost:3000/events", {
+      const response = await fetch("https://my-json-server.typicode.com/Klenic4952/event-app/events", {
         method: "POST",
         body: JSON.stringify(eventData),
         headers: { "Content-type": "application/json" },

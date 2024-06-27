@@ -26,7 +26,7 @@ export const EventPageButtons = ({ event }) => {
 
   // delete request
   const handleDelete = async () => {
-    const response = await fetch(`http://localhost:3000/events/` + event.id, {
+    const response = await fetch(`https://my-json-server.typicode.com/Klenic4952/event-app/events/` + event.id, {
       method: "DELETE",
     });
     if (response.ok) {
